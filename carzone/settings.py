@@ -27,12 +27,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#dang nhap bang fb
+LOGIN_REDIRECT_URL = 'dashboard'
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    #carapp
     'cars.apps.CarsConfig',
+    #pageapp
     'pages.apps.PagesConfig',
+    #accountapp
+    'accounts.apps.AccountsConfig',
+    #contatctapp
+    'contacts.apps.ContactsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +50,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'django.contrib.humanize',
+    #django dung cho dang nhap fb va gg
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # dang nhap bang fb va gg
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +150,16 @@ STATICFILES_DIRS = [
 # Media settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+# Messages
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
+SITE_ID = 1
+
+# Email sending
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = '0306181180@caothang.edu.vn'
+EMAIL_HOST_PASSWORD = '077200000782077200000782'
+EMAIL_USE_TLS = True

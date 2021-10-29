@@ -5,6 +5,7 @@
 
 {% load static %}
 {% load humanize %}
+
 <!-- Sub banner start -->
 <div class="sub-banner overview-bgi">
     <div class="container breadcrumb-area">
@@ -18,6 +19,7 @@
     </div>
 </div>
 <!-- Sub Banner end -->
+
 <!-- Car details page start -->
 <div class="car-details-page content-area-6">
     <div class="container">
@@ -26,6 +28,7 @@
                 <div class="car-details-section">
                     <!-- Heading start -->
                     <div class="heading-car clearfix">
+                      {% include 'includes/messages.html' %}
                         <div class="pull-left">
                             <h3>{{single_car.car_title}}</h3>
                             <h6>
@@ -119,7 +122,9 @@
                                     <h3 class="heading-2">
                                         Description
                                     </h3>
-                                    <p>{{single_car.description | safe }}</p>
+                                    <p>
+                                      {{single_car.description | safe }}
+                                    </p>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
@@ -131,8 +136,11 @@
                                                 <li>
                                                     {{single_car.features}}
                                                 </li>
+
                                             </ul>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -151,54 +159,54 @@
 
 
                         <br>
-                        <h3 class="sidebar-title">Thong So Chi Tiet Xe</h3>
+                        <h3 class="sidebar-title">Refine Your Search</h3>
                         <ul>
-                          <li>
-                              <span>Color: </span>{{single_car.color}}
-                          </li>
-                          <li>
-                              <span>Model: </span>{{single_car.model}}
-                          </li>
-                          <li>
-                              <span>Year: </span>{{single_car.year}}
-                          </li>
-                          <li>
-                              <span>Condition: </span>{{single_car.condition}}
-                          </li>
-                          <li>
-                              <span>Body Style: </span>{{single_car.body_style}}
-                          </li>
-                          <li>
-                              <span>Engine: </span>{{single_car.engine}}
-                          </li>
-                          <li>
-                              <span>Transmission: </span>{{single_car.transmission}}
-                          </li>
-                          <li>
-                              <span>Interior: </span>{{single_car.interior}}
-                          </li>
-                          <li>
-                              <span>Miles: </span>{{single_car.miles | intcomma}} km
-                          </li>
-                          <li>
-                              <span>Doors: </span>{{single_car.doors}}
-                          </li>
-                          <li>
-                              <span>Passengers: </span>{{single_car.passengers}}
-                          </li>
-                          <li>
-                              <span>Vin No: </span>{{single_car.vin_no}}
-                          </li>
-                          <li>
-                              <span>Milage: </span>{{single_car.milage}}
-                          </li>
+                            <li>
+                                <span>Color: </span>{{single_car.color}}
+                            </li>
+                            <li>
+                                <span>Model: </span>{{single_car.model}}
+                            </li>
+                            <li>
+                                <span>Year: </span>{{single_car.year}}
+                            </li>
+                            <li>
+                                <span>Condition: </span>{{single_car.condition}}
+                            </li>
+                            <li>
+                                <span>Body Style: </span>{{single_car.body_style}}
+                            </li>
+                            <li>
+                                <span>Engine: </span>{{single_car.engine}}
+                            </li>
+                            <li>
+                                <span>Transmission: </span>{{single_car.transmission}}
+                            </li>
+                            <li>
+                                <span>Interior: </span>{{single_car.interior}}
+                            </li>
+                            <li>
+                                <span>Miles: </span>{{single_car.miles | intcomma}} km
+                            </li>
+                            <li>
+                                <span>Doors: </span>{{single_car.doors}}
+                            </li>
+                            <li>
+                                <span>Passengers: </span>{{single_car.passengers}}
+                            </li>
+                            <li>
+                                <span>Vin No.: </span>{{single_car.vin_no}}
+                            </li>
+                            <li>
+                                <span>Milage: </span>{{single_car.milage}}
+                            </li>
 
-                          <li>
-                              <span>Fuel Type: </span>{{single_car.fuel_type}}
-                          </li>
-                          <li>
-                              <span>Owners: </span>{{single_car.no_of_owners}}
-                          </li>
+                            <li>
+                                <span>Fuel Type: </span>{{single_car.fuel_type}}
+                            </li>
+                            <li>
+                                <span>Owners: </span>{{single_car.no_of_owners}}
+                            </li>
                         </ul>
                     </div>
 
@@ -208,21 +216,32 @@
                         <div class="modal-content">
                           <div class="contact-dealer modal-header">
                             <!-- <h5 class="modal-title" id="inquiryModalLabel">Contact Dealer</h5> -->
-                            <img src="img/logos/logo-black-white.png">
+                            <center><img src="{% static 'img/logos/logo-black-white.png' %}"></center>
                             <button type="button" class="close" data-dismiss="modal">
                               <span>&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form action="#">
+                            <form action="{% url 'inquiry' %}" method="POST">
+                              {% csrf_token %}
+
+                              {% if user.is_authenticated %}
+                                <input type="hidden" name="user_id" value="{{user.id}}">
+                              {% else %}
+                                <input type="hidden" name="user_id" value="0">
+                              {% endif %}
+
+                              <input type="hidden" name="car_id" value="{{single_car.id}}">
                                 <div class="form-group">
                                   <label for="name" class="col-form-label">Hello, My Name is</label>
                                   <div class="row">
                                     <div class="col">
-                                      <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                                      <input type="text" name="first_name" class="form-control" placeholder="First Name"
+                                      {% if user.is_authenticated %} value="{{user.first_name}}"  {% endif %} required>
                                     </div>
                                     <div class="col">
-                                      <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+                                      <input type="text" name="last_name" class="form-control" placeholder="Last Name"
+                                       {% if user.is_authenticated %} value="{{user.last_name}}"  {% endif %} required>
                                     </div>
                                   </div>
                                 </div>
@@ -236,7 +255,7 @@
                                     </div>
 
                                 <div class="form-group">
-                                  <input type="text" name="car_title" class="form-control" value="LAMBORGHINI HURACÁN." readonly>
+                                  <input type="text" name="car_title" class="form-control" value="{{ single_car.car_title }}" readonly>
                                 </div>
 
                                 <div class="form-group">
@@ -255,7 +274,8 @@
                                   <div class="row">
                                     <div class="col">
                                         <label for="name" class="col-form-label">You can reach me by email at</label>
-                                      <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                                      <input type="email" name="email" class="form-control" placeholder="Email Address"
+                                       {% if user.is_authenticated %} value="{{user.email}}"  {% endif %} required>
                                     </div>
                                     <div class="col">
                                         <label for="phone" class="col-form-label">or by phone at</label>

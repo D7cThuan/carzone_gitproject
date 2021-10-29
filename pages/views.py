@@ -29,7 +29,30 @@ def services(request):
     return render(request, 'pages/services.html')
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        phone = request.POST['phone']
+        message = request.POST['message']
+
+        email_subject = 'Ban co tin nhan moi tu khach hang (carzone) ' + subject
+        message_body = 'Name: ' + name + '. Email: ' + email + '. Phone: ' + phone + '. Message: ' + message
+
+        admin_info = User.objects.get(is_superuser=True)
+        admin_email = admin_info.email
+        send_mail(
+                email_subject,
+                message_body,
+                '0306181180@caothang.edu.vn',
+                [admin_email],
+                fail_silently=False,
+            )
+        messages.success(request, 'Thank you for contacting us. We will get back to you shortly')
+        return redirect('contact')
+
     return render(request, 'pages/contact.html')
+
 
 def about(request):
     teams = Team.objects.all()
