@@ -21,27 +21,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'w61l8x7ui-$d6-no*nf(d0+c=(g*9l++$8wn1d1wq#4l==k0gw'
+SECRET_KEY = '934nw3r62@!m0^ksgw3#31tntglnr%td+-_b89xpu2@q2zqv=d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['floating-badlands-41165.herokuapp.com', 'carzoneapp.co', 'www.carzoneapp.co']
 
-#dang nhap bang fb
 LOGIN_REDIRECT_URL = 'dashboard'
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    #carapp
     'cars.apps.CarsConfig',
-    #pageapp
     'pages.apps.PagesConfig',
-    #accountapp
     'accounts.apps.AccountsConfig',
-    #contatctapp
     'contacts.apps.ContactsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,13 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'django.contrib.humanize',
-    #django dung cho dang nhap fb va gg
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 
-    # dang nhap bang fb va gg
+    # Providers
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
 ]
@@ -97,17 +91,17 @@ WSGI_APPLICATION = 'carzone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'carzone_db',
 #         'USER': 'postgres',
-#         'PASSWORD': 'Th09092000',
+#         'PASSWORD': 'qWerty@123',
 #         'HOST': 'localhost',
 #     }
 # }
-DATABASES = {'default': dj_database_url.config(default='postgres://postgres:Th09092000@localhost/carzone_db')}
 
+DATABASES = {'default': dj_database_url.config(default='postgres://postgres:Th09092000@localhost/carzone_db')}
 
 
 # Password validation
@@ -151,15 +145,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'carzone/static'),
 ]
+
 # Media settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 # Messages
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
 SITE_ID = 1
+
 
 # Email sending
 EMAIL_HOST = 'smtp.gmail.com'
@@ -167,5 +165,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = '0306181180@caothang.edu.vn'
 EMAIL_HOST_PASSWORD = '077200000782077200000782'
 EMAIL_USE_TLS = True
+
+
 # Whitenoise settings
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
