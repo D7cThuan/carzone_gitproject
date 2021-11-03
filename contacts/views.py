@@ -41,7 +41,6 @@ def inquiry(request):
                 [admin_email],
                 fail_silently=False,
             )
-
         contact.save()
         messages.success(request, 'Your request has been submitted, we will get back to you shortly.')
         return redirect('/cars/'+car_id)
