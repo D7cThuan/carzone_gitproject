@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'carzone.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'carzone_db',
 #         'USER': 'postgres',
-#         'PASSWORD': 'qWerty@123',
+#         'PASSWORD': 'Th09092000',
 #         'HOST': 'localhost',
 #     }
 # }
@@ -159,7 +159,7 @@ MESSAGE_TAGS = {
 SITE_ID = 1
 
 
-# Email sending
+# Email gui
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = '0306181180@caothang.edu.vn'
