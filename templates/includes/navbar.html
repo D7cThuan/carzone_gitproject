@@ -66,6 +66,15 @@
                         {% endif %}
                          href="{% url 'contact' %}">Contact</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a
+                        {% if 'contact' in request.path %}
+                        class="nav-link active"
+                        {% else %}
+                        class="nav-link"
+                        {% endif %}
+                         href="{% url 'login' %}">Login</a>
+                    </li>
                     <li class="nav-item dropdown m-hide">
                         <a href="#full-page-search" class="nav-link h-icon">
                             <i class="fa fa-search"></i>
