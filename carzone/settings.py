@@ -26,7 +26,7 @@ SECRET_KEY = '934nw3r62@!m0^ksgw3#31tntglnr%td+-_b89xpu2@q2zqv=d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ckcxecu.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['ckcxecu.herokuapp.com', 'localhost', '127.0.0.1','31.220.53.16','ckcthuexe.store']
 
 LOGIN_REDIRECT_URL = 'dashboard'
 
